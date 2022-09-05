@@ -258,8 +258,7 @@
         com.android.packageinstaller
     </string>
 
-    <!-- Settings intelligence interaction log intent action -->
-    <string name="config_settingsintelligence_log_action" translatable="false"></string>
+   <string name="config_settingsintelligence_log_action" translatable="false"></string>
 
     <!-- AOSP Emergency app package name -->
     <string name="config_aosp_emergency_package_name" translatable="false">
