@@ -51,7 +51,7 @@ public class SecurityPatchLevelPreferenceController extends BasePreferenceContro
     @Override
     public CharSequence getSummary() {
         //return mCurrentPatch;
-        return "September 5, 2023";
+        return "September 1, 2023";
     }
 
     @Override
