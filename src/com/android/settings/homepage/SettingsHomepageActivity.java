@@ -195,19 +195,16 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
 
-        final boolean useStockLayout = getuseStockLayout();
-        final boolean isUserCardDisabled = getUserCardState();
-        final boolean messagesEnabled = getMessagesSettings();
+        // Ensure device is provisioned in order to access Settings home
+        // TODO(b/331254029): This should later be replaced in favor of an allowlist
+        boolean unprovisioned = android.provider.Settings.Global.getInt(getContentResolver(),
+                android.provider.Settings.Global.DEVICE_PROVISIONED, 0) == 0;
+        if (unprovisioned) {
+            Log.e(TAG, "Device is not provisioned, exiting Settings");
+            finish();
+            return;
+        }
 
-        setContentView(useStockLayout  ? R.layout.settings_homepage_container_stock
-                                       : R.layout.settings_homepage_container);
-
-
-        updateHomepageBackground();
-        mLoadedListeners = new ArraySet<>();
-        final String highlightMenuKey = getHighlightMenuKey();
-        if (useStockLayout) {
-        
         mIsEmbeddingActivityEnabled = ActivityEmbeddingUtils.isEmbeddingActivityEnabled(this);
         if (mIsEmbeddingActivityEnabled) {
             final UserManager um = getSystemService(UserManager.class);
