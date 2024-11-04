@@ -66,7 +66,12 @@ public class ScreenOffUdfpsPreferenceController extends GesturePreferenceControl
 
     @Override
     public int getAvailabilityStatus() {
-        return screenOffUdfpsAvailable(getAmbientConfig()) ? AVAILABLE : UNSUPPORTED_ON_DEVICE;
+        // No hardware support for Screen-Off UDFPS
+        if (!screenOffUdfpsAvailable(getAmbientConfig())) {
+            return UNSUPPORTED_ON_DEVICE;
+        }
+
+        return AVAILABLE;
     }
 
     @Override
