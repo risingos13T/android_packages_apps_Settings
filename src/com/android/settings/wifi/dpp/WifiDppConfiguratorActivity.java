@@ -129,6 +129,12 @@ public class WifiDppConfiguratorActivity extends WifiDppBaseActivity implements
             finish();
             return;
         }
+        if (isGuestUser(getApplicationContext())) {
+            Log.e(TAG, "Guest user is not allowed to configure Wi-Fi!");
+            EventLog.writeEvent(0x534e4554, "224772890", -1 /* UID */, "User is a guest");
+            finish();
+            return;
+        }
 
         String action = intent != null ? intent.getAction() : null;
         if (action == null) {
@@ -398,6 +404,13 @@ public class WifiDppConfiguratorActivity extends WifiDppBaseActivity implements
         }
 
         return null;
+    }
+
+    private static boolean isGuestUser(Context context) {
+        if (context == null) return false;
+        final UserManager userManager = context.getSystemService(UserManager.class);
+        if (userManager == null) return false;
+        return userManager.isGuestUser();
     }
 
     @VisibleForTesting
